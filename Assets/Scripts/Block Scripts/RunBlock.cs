@@ -11,6 +11,7 @@ public class RunBlock : MonoBehaviour
     private static bool rotating = false;
 
     private static bool Activated = false;
+
     public static bool getRunning(){
         return running;
     }
@@ -42,7 +43,7 @@ public class RunBlock : MonoBehaviour
         Button[] panel = GameObject.FindWithTag("Drop").GetComponentsInChildren<Button>();
         LinkedList<Button> buttons = new LinkedList<Button>(panel);
         for(int i = 0 ; i < panel.Length ; i++){
-            Debug.Log(i);
+            //Debug.Log(i);
         if(panel[i].name == "Run(Clone)"){
             running = true;
             Activated = true;
@@ -56,8 +57,8 @@ public class RunBlock : MonoBehaviour
             Debug.Log(rotating);
         }else{
             //yield return new WaitForSecondsRealtime(2);
-            
         }
         }
+        panel = null;
     }
 }

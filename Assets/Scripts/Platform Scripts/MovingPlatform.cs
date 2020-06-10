@@ -26,10 +26,14 @@ public class MovingPlatform : MonoBehaviour
         
         [SerializeField]
         private float timer = 1f;
+
+        private SoundFX soundFX;
     // Start is called before the first frame update
     void Awake() {
         startPosition = transform.position;
         initailMovement = smoothMovement;
+
+        soundFX = GetComponent<SoundFX>();
     }
     void Start(){
         if(activateMovementInStart){
@@ -63,12 +67,14 @@ public class MovingPlatform : MonoBehaviour
                     smoothMovementHalfed = false;
                 }
 
-
+                soundFX.PlayAudio(false);
             }
         }
     }
 
     public void ActivateMovement(){
         can_Move = true;
+
+        soundFX.PlayAudio(true);
     }
 }

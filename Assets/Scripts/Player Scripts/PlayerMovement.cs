@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -16,11 +17,31 @@ public class PlayerMovement : MonoBehaviour
     private static bool finish = true;
 
     private float unit = 3f;
+
     //private float walk = 1f
+
+    Vector3 oldEulerAngles;
+
+    float zPost;
+
+    float angle;
+
+    int framePerU;
+
 
     public static bool getFinish(){
         return finish;
     }
+
+    private void Start() {
+        this.transform.position = new Vector3(0 , 5 ,0);
+        this.transform.rotation = new Quaternion(0 , 0 , 0 ,0);
+        oldEulerAngles = this.transform.rotation.eulerAngles;
+        zPost = this.transform.localPosition.z;
+        angle = this.transform.rotation.y;
+        framePerU = 0;
+    }
+
     void Awake(){
         rb = GetComponent<Rigidbody>();
         targetForward = transform.forward;
@@ -28,9 +49,10 @@ public class PlayerMovement : MonoBehaviour
         mainCam = Camera.main;
     }
 
+
     //Update is called once per frame
-    // void Update()
-    // {
+        void Update()
+        {
     //     //UpdateForward();
     //     //GetInput();
     //     if(RunBlock.getRunning() == true){
@@ -38,22 +60,33 @@ public class PlayerMovement : MonoBehaviour
     //     }
     //     else if(RunBlock.getRotating() == true){
     //     StartCoroutine(RotatePlayer());
-    //     }
-    // }
+    //     }\
+        if(MenuScript.closing){
+            RunBlock.setRunning();
+            RunBlock.setRotating();
+            RunBlock.setActivate();
+        }
+        if(this.transform.position.y < -5f){
+            RunBlock.setRunning();
+            RunBlock.setRotating();
+            RunBlock.setActivate();
+            SceneManager.LoadScene("GameOver");
+        }
+        }
 
     void FixedUpdate() {
-        // if(RunBlock.getRunning()){
-        // Debug.Log("inside Move");
-        // MovePlayer();
-        // }
-        //MovePlayer();
-        if(RunBlock.getRunning() == true){
-        StartCoroutine(MovePlayer());
-        }
-        else if(RunBlock.getRotating() == true){
-        StartCoroutine(RotatePlayer());
-        }
         
+        // if(oldEulerAngles == this.transform.rotation.eulerAngles){
+        //     RunBlock.setRotating();
+        // }
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
+        if(RunBlock.getRotating() == true){
+        RotatePlayer(90.0f);
+        }
+        else if(RunBlock.getRunning() == true){
+        MovePlayer(13.0f);
+        }
+
     }
     void GetInput(){
         if(Input.GetMouseButtonDown(0)){
@@ -70,8 +103,7 @@ public class PlayerMovement : MonoBehaviour
             transform.forward, targetForward, Time.deltaTime * smoothMovement
         );
     }
-    public IEnumerator MovePlayer(){
-        //Debug.Log("Moving");
+    public void MovePlayer(float ans){
             //dPos = new Vector3(Input.GetAxisRaw(Axis.MOUSE_X), 0f, Input.GetAxisRaw(Axis.MOUSE_Y));
             // dPos.Normalize();
 
@@ -82,7 +114,7 @@ public class PlayerMovement : MonoBehaviour
             // if(dPos != Vector3.zero){
             //     targetForward = Vector3.ProjectOnPlane(-dPos, Vector3.up);
             // }
-             float elapsedTime = 0.0f;
+            //float elapsedTime = 0.0f;
             // Vector3 startingPos = this.transform.position;
             // Vector3 endPos = startingPos;
             // endPos.z = this.transform.position.z - 5.0f;
@@ -96,15 +128,23 @@ public class PlayerMovement : MonoBehaviour
             
             
             //transform.Translate( 0.0f ,0.0f,-13.0f);
-            if(RunBlock.getRunning() == true){
-            transform.Translate(Vector3.back * Time.deltaTime * 4.3f);
-            yield return new WaitForSeconds(3f);
-            }
             
-            finish = true;
-            RunBlock.setRunning();
-        
-        
+            //if(RunBlock.getRunning() == true){
+            if(framePerU == 132){
+                RunBlock.setRunning();
+                zPost = this.transform.localPosition.z;
+                framePerU = 0;
+            }else{
+             transform.Translate(Vector3.back * Time.deltaTime * 5.0f);
+             framePerU++;
+             //transform.Translate(new Vector3(0 , 0 , -13.5f),Space.Self);
+            // rb.position += Vector3.forward * Time.deltaTime * 5.0f;
+            // Debug.Log("this is x" + this.transform.position.x);
+            // Debug.Log("this is y" + this.transform.position.y);
+            // Debug.Log("this is z" + this.transform.position.z);
+            }
+
+            //}
         // finish = false;
         // transform.position += transform.forward * -unit;
         // finish = true;
@@ -113,16 +153,21 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    public IEnumerator RotatePlayer(){
-        //Debug.Log("Rotating");
-        if(RunBlock.getRotating() == true){
-        float tar = this.transform.rotation.y + 90.0f;
-        Quaternion target = Quaternion.Euler(0.0f, tar, 0.0f);
-        this.transform.rotation = Quaternion.Slerp(this.transform.rotation, target,  Time.deltaTime * 5.0f);
-        yield return new WaitForFixedUpdate();
-        }
+    public void RotatePlayer(float ans){
 
-        RunBlock.setRotating();
+        //Debug.Log("Rotating");
+        
+        if(this.transform.rotation.eulerAngles.y >= angle + ans){
+            RunBlock.setRotating();
+            angle = this.transform.rotation.eulerAngles.y;
+        }else{
+        // float tar = this.transform.rotation.y + ans;
+        // Quaternion target = Quaternion.Euler(0.0f, tar, 0.0f);
+        // this.transform.rotation = Quaternion.Slerp(this.transform.rotation, target,  Time.deltaTime * 5.0f);
+        // yield return new WaitForSeconds(2f);
+        transform.Rotate(0 , 90 , 0);
+        }
+        Debug.Log(angle);
     }
 
 }
