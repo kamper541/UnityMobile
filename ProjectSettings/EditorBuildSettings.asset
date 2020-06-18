@@ -26,4 +26,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Thank.unity
     guid: 7804f62d0cee2904f8a285bd7a5f394c
+  - enabled: 1
+    path: Assets/Tuto2.unity
+    guid: 8f1130416423e5b42839d2a4e05d3462
+  - enabled: 1
+    path: Assets/Scenes6.unity
+    guid: 5e30d4d5e9e19184dbea3efa65a69d30
   m_configObjects: {}

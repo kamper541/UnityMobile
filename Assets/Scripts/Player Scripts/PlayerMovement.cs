@@ -28,14 +28,13 @@ public class PlayerMovement : MonoBehaviour
 
     int framePerU;
 
-
     public static bool getFinish(){
         return finish;
     }
 
     private void Start() {
         this.transform.position = new Vector3(0 , 5 ,0);
-        this.transform.rotation = new Quaternion(0 , 0 , 0 ,0);
+        this.transform.rotation = new Quaternion(0 , 180 , 0 ,0);
         oldEulerAngles = this.transform.rotation.eulerAngles;
         zPost = this.transform.localPosition.z;
         angle = this.transform.rotation.y;
@@ -53,14 +52,6 @@ public class PlayerMovement : MonoBehaviour
     //Update is called once per frame
         void Update()
         {
-    //     //UpdateForward();
-    //     //GetInput();
-    //     if(RunBlock.getRunning() == true){
-    //     StartCoroutine(MovePlayer());
-    //     }
-    //     else if(RunBlock.getRotating() == true){
-    //     StartCoroutine(RotatePlayer());
-    //     }\
         if(MenuScript.closing){
             RunBlock.setRunning();
             RunBlock.setRotating();
@@ -75,18 +66,13 @@ public class PlayerMovement : MonoBehaviour
         }
 
     void FixedUpdate() {
-        
-        // if(oldEulerAngles == this.transform.rotation.eulerAngles){
-        //     RunBlock.setRotating();
-        // }
         rb.constraints = RigidbodyConstraints.FreezeRotation;
         if(RunBlock.getRotating() == true){
-        RotatePlayer(90.0f);
+        RotatePlayer(RunBlock.getRevs());
         }
         else if(RunBlock.getRunning() == true){
-        MovePlayer(13.0f);
+        MovePlayer(RunBlock.getSteps());
         }
-
     }
     void GetInput(){
         if(Input.GetMouseButtonDown(0)){
@@ -104,52 +90,14 @@ public class PlayerMovement : MonoBehaviour
         );
     }
     public void MovePlayer(float ans){
-            //dPos = new Vector3(Input.GetAxisRaw(Axis.MOUSE_X), 0f, Input.GetAxisRaw(Axis.MOUSE_Y));
-            // dPos.Normalize();
-
-            // dPos *= moveSpeed * Time.fixedDeltaTime;
-            // dPos = Quaternion.Euler(0f, mainCam.transform.eulerAngles.y, 0f) * dPos;
-            // rb.MovePosition(rb.position + dPos);
-
-            // if(dPos != Vector3.zero){
-            //     targetForward = Vector3.ProjectOnPlane(-dPos, Vector3.up);
-            // }
-            //float elapsedTime = 0.0f;
-            // Vector3 startingPos = this.transform.position;
-            // Vector3 endPos = startingPos;
-            // endPos.z = this.transform.position.z - 5.0f;
-            // while(elapsedTime < 3.0){
-                
-            //     this.transform.position = Vector3.Lerp(startingPos , endPos , (elapsedTime/3.0f));
-            //     elapsedTime += Time.deltaTime;
-            //     yield return new WaitForEndOfFrame();
-            // } 
-            // this.transform.position = endPos;
-            
-            
-            //transform.Translate( 0.0f ,0.0f,-13.0f);
-            
-            //if(RunBlock.getRunning() == true){
-            if(framePerU == 132){
+            if(framePerU == 135){
                 RunBlock.setRunning();
                 zPost = this.transform.localPosition.z;
                 framePerU = 0;
             }else{
-             transform.Translate(Vector3.back * Time.deltaTime * 5.0f);
+             transform.Translate(Vector3.forward * Time.deltaTime * 5.0f);
              framePerU++;
-             //transform.Translate(new Vector3(0 , 0 , -13.5f),Space.Self);
-            // rb.position += Vector3.forward * Time.deltaTime * 5.0f;
-            // Debug.Log("this is x" + this.transform.position.x);
-            // Debug.Log("this is y" + this.transform.position.y);
-            // Debug.Log("this is z" + this.transform.position.z);
             }
-
-            //}
-        // finish = false;
-        // transform.position += transform.forward * -unit;
-        // finish = true;
-        // RunBlock.setRunning();
-        
     }
 
 
@@ -157,16 +105,18 @@ public class PlayerMovement : MonoBehaviour
 
         //Debug.Log("Rotating");
         
-        if(this.transform.rotation.eulerAngles.y >= angle + ans){
-            RunBlock.setRotating();
-            angle = this.transform.rotation.eulerAngles.y;
-        }else{
-        // float tar = this.transform.rotation.y + ans;
-        // Quaternion target = Quaternion.Euler(0.0f, tar, 0.0f);
-        // this.transform.rotation = Quaternion.Slerp(this.transform.rotation, target,  Time.deltaTime * 5.0f);
-        // yield return new WaitForSeconds(2f);
-        transform.Rotate(0 , 90 , 0);
-        }
+        // if(this.transform.rotation.eulerAngles.y >= angle + 90){
+        //     RunBlock.setRotating();
+        //     angle = this.transform.rotation.eulerAngles.y;
+        // }else{
+        // // float tar = this.transform.rotation.y + ans;
+        // // Quaternion target = Quaternion.Euler(0.0f, tar, 0.0f);
+        // // this.transform.rotation = Quaternion.Slerp(this.transform.rotation, target,  Time.deltaTime * 5.0f);
+        // // yield return new WaitForSeconds(2f);
+        // transform.Rotate(0 , 90 , 0);
+        // }
+        transform.Rotate(0 , this.transform.rotation.y + 90 , 0);
+        RunBlock.setRotating();
         Debug.Log(angle);
     }
 
