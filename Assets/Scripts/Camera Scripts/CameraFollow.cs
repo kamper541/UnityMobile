@@ -15,6 +15,10 @@ public class CameraFollow : MonoBehaviour{
 
     private Vector3 offset;
 
+    Vector3 touchStart;
+    public float zoomOutMin = 1;
+    public float zoomOutMax = 18;
+
     void Awake() {
         target = GameObject.FindWithTag(Tags.PLAYER_TAG).transform;
     }
@@ -30,36 +34,14 @@ public class CameraFollow : MonoBehaviour{
     void Update(){
         if(RunBlock.getAct()){
         FollowPlayer();
-        }else{
-        //FreeHand();
+        }else if (!RunBlock.getAct() && !DragnDrop.dragged){
+        pinch();
         }
 
     }
-
-    public void FreeHandR(){
-        // if(Input.GetMouseButtonDown(0)){
-        //     touchPosition = Input.mousePosition;
-        // }
-        // if(Input.GetMouseButtonUp(0)){
-        //     float swipeForce = touchPosition.x - Input.mousePosition.x;
-        //     if(Mathf.Abs(swipeForce) > swipeResistance){
-        //         if(swipeForce < 0){
-        //             SlideCamera(true);
-        //         }else{
-        //             SlideCamera(false);
-        //         }
-        //     }
-        // }
-        transform.Translate(targetForward * Time.deltaTime);
-        
-    }
-
-    
-
     void Snap(){
         if(target != null){
             transform.position = target.position;
-
         }
         Vector3 forward = targetForward;
         forward.y = transform.forward.y;
@@ -71,12 +53,34 @@ public class CameraFollow : MonoBehaviour{
             transform.position = 
                 Vector3.Lerp(transform.position, target.position, Time.deltaTime * moveSmoothing);
         }
-
         Vector3 forward = transform.forward;
         forward.y = 0f;
         forward = Vector3.Slerp(forward, forward, Time.deltaTime * rotationSmoothing);
         forward.y = transform.forward.y;
         transform.forward = forward;
+    }
 
+    void pinch(){
+        if(Input.GetMouseButtonDown(0)){
+            touchStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
+        if(Input.touchCount == 2){
+            Touch touchZero = Input.GetTouch(0);
+            Touch touchOne = Input.GetTouch(1);
+            Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
+            Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
+            float prevMagnitude = (touchZeroPrevPos - touchOnePrevPos).magnitude;
+            float currentMagnitude = (touchZero.position - touchOne.position).magnitude;
+            float difference = currentMagnitude - prevMagnitude;
+            zoom(difference * 0.01f);
+        }else if(Input.GetMouseButton(0)){
+            Vector3 direction = touchStart - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Camera.main.transform.position += direction;
+        }
+        zoom(Input.GetAxis("Mouse ScrollWheel"));
+    }
+
+    void zoom(float increment){
+        Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - increment, zoomOutMin, zoomOutMax);
     }
 }
