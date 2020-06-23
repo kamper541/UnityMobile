@@ -9,7 +9,6 @@ public class RunBlock : MonoBehaviour
 {
     private static bool running = false;
     private static bool rotating = false;
-
     private static bool Activated = false;
 
     private static InputField stepsI;
@@ -67,24 +66,24 @@ public class RunBlock : MonoBehaviour
         Debug.Log("clicked");
         if(!Activated){
         Activated = true;
-        Button[] panel = GameObject.FindWithTag("Drop").GetComponentsInChildren<Button>();
+        GameObject[] panel = GameObject.FindGameObjectsWithTag("BlockCode");
         //LinkedList<Button> buttons = new LinkedList<Button>(panel);
         for(int i = 0 ; i < panel.Length ; i++){
             //Debug.Log(i);
         if(panel[i].name == "Run(Clone)"){
-            //stepsI = panel[i].GetComponentInChildren<InputField>();
-            //steps = int.Parse(stepsI.text);
+            stepsI = panel[i].GetComponentInChildren<InputField>();
+            steps = int.Parse(stepsI.text);
             running = true;
             yield return new WaitWhile(() => running == true);
-            //stepsI = null;
+            stepsI = null;
             Debug.Log(running);
             
         }else if(panel[i].name == "Rotate(Clone)"){
-            //revsI = panel[i].GetComponentInChildren<InputField>();
-            //revs = int.Parse(revsI.text);
+            revsI = panel[i].GetComponentInChildren<InputField>();
+            revs = int.Parse(revsI.text);
             rotating = true;
             yield return new WaitWhile(() => rotating == true);
-            //revsI = null;
+            revsI = null;
             Debug.Log(rotating);
         }else if(panel[i].name == "Wait(Clone)"){
             yield return new WaitForSeconds(5f);

@@ -83,13 +83,13 @@ public class PlayerMovement : MonoBehaviour
             finish = true;
         }
     }
-
     void UpdateForward(){
         transform.forward = Vector3.Slerp(
             transform.forward, targetForward, Time.deltaTime * smoothMovement
         );
     }
     public void MovePlayer(float ans){
+        Debug.Log("Moving Player" + ans);
             if(framePerU == 135){
                 RunBlock.setRunning();
                 zPost = this.transform.localPosition.z;

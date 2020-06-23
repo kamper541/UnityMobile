@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class DragnDrop : MonoBehaviour , IBeginDragHandler, IDragHandler, IEndDragHandler
+public class Drag : MonoBehaviour , IBeginDragHandler , IDragHandler , IEndDragHandler
 {
+    public Transform parentToReturnTo = null;
+
     static public GameObject itemBeingDragged;
-    static public ItemIntel tmpinfo;
 
     public static bool dragged = false;
     public void OnBeginDrag(PointerEventData eventData)
@@ -21,26 +22,28 @@ public class DragnDrop : MonoBehaviour , IBeginDragHandler, IDragHandler, IEndDr
         rt.sizeDelta = new Vector2(tmpRT.sizeDelta.x , tmpRT.sizeDelta.y);
 
         GetComponent<CanvasGroup>().blocksRaycasts = false;
-        tmpinfo = GetComponent<ItemIntel>();
+
+        parentToReturnTo = this.transform.parent;
         Transform canvas = GameObject.FindWithTag("UI Canvas").transform;
-        // Transform zone = GameObject.FindWithTag("Drop").transform;
-        // itemBeingDragged.transform.SetParent(zone);
-        // zone.GetComponentInChildren<Button>().name = "newBlock";
         itemBeingDragged.transform.SetParent(canvas);
-        itemBeingDragged.GetComponent<CanvasGroup>().blocksRaycasts = false;
+        GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-
         itemBeingDragged.transform.position = eventData.position;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        // Destroy(DragnDrop.itemBeingDragged);
+        //  DragnDrop.itemBeingDragged = null;
+        //this.transform.SetParent(parentToReturnTo);
         GetComponent<CanvasGroup>().blocksRaycasts = true;
-         Destroy(DragnDrop.itemBeingDragged);
-         DragnDrop.itemBeingDragged = null;
-         dragged = false;
+        Transform canvas = GameObject.FindWithTag("Drop").transform;
+        itemBeingDragged.transform.SetParent(canvas);
+        Destroy(DragnDrop.itemBeingDragged);
+        Drag.itemBeingDragged = null;
+        dragged = false;
     }
 }

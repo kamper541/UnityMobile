@@ -8,6 +8,9 @@ TagManager:
   - Block
   - RUN
   - Drop
+  - KUY
+  - inv
+  - BlockCode
   layers:
   - Default
   - TransparentFX

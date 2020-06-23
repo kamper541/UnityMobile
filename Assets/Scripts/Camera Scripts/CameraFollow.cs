@@ -34,7 +34,7 @@ public class CameraFollow : MonoBehaviour{
     void Update(){
         if(RunBlock.getAct()){
         FollowPlayer();
-        }else if (!RunBlock.getAct() && !DragnDrop.dragged){
+        }else if (!RunBlock.getAct() && !Drag.dragged){
         pinch();
         }
 

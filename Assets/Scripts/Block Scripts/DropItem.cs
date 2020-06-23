@@ -27,7 +27,6 @@ public class DropItem : MonoBehaviour, IDropHandler
         Destroy(DragnDrop.itemBeingDragged);
         DragnDrop.itemBeingDragged = null;
     }
-
     public void clear(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

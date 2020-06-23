@@ -35,7 +35,7 @@ public class PMsave : MonoBehaviour
 
     private void Start() {
         this.transform.position = new Vector3(0 , 5 ,0);
-        this.transform.rotation = new Quaternion(0 , 0 , 0 ,0);
+        this.transform.rotation = new Quaternion(0 , 180 , 0 ,0);
         oldEulerAngles = this.transform.rotation.eulerAngles;
         zPost = this.transform.localPosition.z;
         angle = this.transform.rotation.y;
@@ -91,12 +91,13 @@ public class PMsave : MonoBehaviour
         );
     }
     public void MovePlayer(float ans){
+        Debug.Log("Moving Player" + ans);
             if(framePerU == ans){
                 RunBlock.setRunning();
                 zPost = this.transform.localPosition.z;
                 framePerU = 0;
             }else{
-             transform.Translate(Vector3.back * Time.deltaTime * 5.0f);
+             transform.Translate(Vector3.forward * Time.deltaTime * 5.0f);
              framePerU++;
             }
     }
@@ -106,7 +107,7 @@ public class PMsave : MonoBehaviour
 
         //Debug.Log("Rotating");
         
-        if(this.transform.rotation.eulerAngles.y >= angle + ans){
+        if(this.transform.rotation.eulerAngles.y >= angle + 90){
             RunBlock.setRotating();
             angle = this.transform.rotation.eulerAngles.y;
         }else{
