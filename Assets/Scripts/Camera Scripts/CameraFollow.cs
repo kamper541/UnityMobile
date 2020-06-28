@@ -19,6 +19,15 @@ public class CameraFollow : MonoBehaviour{
     public float zoomOutMin = 1;
     public float zoomOutMax = 18;
 
+    [SerializeField] private Camera cam;
+    [SerializeField] private Transform targets;
+    [SerializeField] private float distanceToTarget = 10;
+    private Vector3 previousPosition;
+
+    protected float CameraAngle;
+    protected float CameraAngleSpeed = 0.2f;
+
+    public FixedTouchField TouchField;
     void Awake() {
         target = GameObject.FindWithTag(Tags.PLAYER_TAG).transform;
     }
@@ -33,9 +42,11 @@ public class CameraFollow : MonoBehaviour{
     // Update is called once per frame
     void Update(){
         if(RunBlock.getAct()){
-        FollowPlayer();
+            FollowPlayer();
+            //rotateCamera();
+            rotate();
         }else if (!RunBlock.getAct() && !Drag.dragged){
-        pinch();
+            pinch();
         }
 
     }
@@ -82,5 +93,31 @@ public class CameraFollow : MonoBehaviour{
 
     void zoom(float increment){
         Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - increment, zoomOutMin, zoomOutMax);
+    }
+
+    void rotate(){
+        if (Input.GetMouseButtonDown(0))
+        {
+            previousPosition = cam.ScreenToViewportPoint(Input.mousePosition);
+        }
+        else if (Input.GetMouseButton(0))
+        {
+            Vector3 newPosition = cam.ScreenToViewportPoint(Input.mousePosition);
+            Vector3 direction = previousPosition - newPosition;
+            float rotationAroundYAxis = -direction.x * 180; // camera moves horizontally
+            float rotationAroundXAxis = direction.y * 180; // camera moves vertically
+            cam.transform.position = target.position;
+            //cam.transform.Rotate(new Vector3(1, 0, 0), rotationAroundXAxis);
+            cam.transform.Rotate(new Vector3(0, 1, 0), rotationAroundYAxis, Space.Self);
+            cam.transform.Translate(new Vector3(0, 0, -distanceToTarget));
+            previousPosition = newPosition;
+        }
+    }
+
+    void rotateCamera(){
+        CameraAngle += TouchField.TouchDist.x * CameraAngleSpeed;
+
+        Camera.main.transform.position = transform.position + Quaternion.AngleAxis(CameraAngle, Vector3.up) * new Vector3(0 , 3 , 4);
+        Camera.main.transform.rotation = Quaternion.LookRotation(transform.position + Vector3.up *2f - Camera.main.transform.position, Vector3.up);
     }
 }

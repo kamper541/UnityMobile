@@ -5,6 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class PMsave : MonoBehaviour
 {
+    [SerializeField]
+    private float startX;
+    [SerializeField]
+    private float startY;
+    [SerializeField]
+    private float startZ;
+    [SerializeField]
+    private float startR;
     private Rigidbody rb;
     public float moveSpeed = 3f;
     private float smoothMovement = 15f;
@@ -34,8 +42,10 @@ public class PMsave : MonoBehaviour
     }
 
     private void Start() {
-        this.transform.position = new Vector3(0 , 5 ,0);
-        this.transform.rotation = new Quaternion(0 , 180 , 0 ,0);
+        this.transform.position = new Vector3(startX , startY ,startZ);
+        this.transform.rotation = new Quaternion(0 , 0 , 0 ,0);
+        transform.Rotate(0 , startR ,0);
+        Debug.Log(this.transform.rotation.eulerAngles.y);
         oldEulerAngles = this.transform.rotation.eulerAngles;
         zPost = this.transform.localPosition.z;
         angle = this.transform.rotation.y;
@@ -67,7 +77,7 @@ public class PMsave : MonoBehaviour
         }
 
     void FixedUpdate() {
-        rb.constraints = RigidbodyConstraints.FreezeRotation;
+        //rb.constraints = RigidbodyConstraints.FreezeRotation;
         if(RunBlock.getRotating() == true){
         RotatePlayer(RunBlock.getRevs());
         }
@@ -105,18 +115,22 @@ public class PMsave : MonoBehaviour
 
     public void RotatePlayer(float ans){
 
-        //Debug.Log("Rotating");
+        Debug.Log("Rotating");
+        //float check = angle + 90;
         
-        if(this.transform.rotation.eulerAngles.y >= angle + 90){
-            RunBlock.setRotating();
-            angle = this.transform.rotation.eulerAngles.y;
-        }else{
-        // float tar = this.transform.rotation.y + ans;
-        // Quaternion target = Quaternion.Euler(0.0f, tar, 0.0f);
-        // this.transform.rotation = Quaternion.Slerp(this.transform.rotation, target,  Time.deltaTime * 5.0f);
-        // yield return new WaitForSeconds(2f);
-        transform.Rotate(0 , 90 , 0);
-        }
+        
+        // if(this.transform.rotation.eulerAngles.y >= angle + 90){
+        //     RunBlock.setRotating();
+        //     angle = this.transform.rotation.eulerAngles.y;
+        // }else{
+        // // float tar = this.transform.rotation.y + ans;
+        // // Quaternion target = Quaternion.Euler(0.0f, tar, 0.0f);
+        // // this.transform.rotation = Quaternion.Slerp(this.transform.rotation, target,  Time.deltaTime * 5.0f);
+        // // yield return new WaitForSeconds(2f);
+        // transform.Rotate(0 , ans , 0);
+        // }
+        transform.Rotate(0 , ans , 0);
+        RunBlock.setRotating();
         Debug.Log(angle);
     }
 

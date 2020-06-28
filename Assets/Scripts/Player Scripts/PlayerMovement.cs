@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start() {
         this.transform.position = new Vector3(0 , 5 ,0);
-        this.transform.rotation = new Quaternion(0 , 180 , 0 ,0);
+        this.transform.rotation = new Quaternion(0 , 0 , 0 ,0);
         oldEulerAngles = this.transform.rotation.eulerAngles;
         zPost = this.transform.localPosition.z;
         angle = this.transform.rotation.y;
