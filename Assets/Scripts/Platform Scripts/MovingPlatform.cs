@@ -47,6 +47,7 @@ public class MovingPlatform : MonoBehaviour
     }
 
     void MovePlatform(){
+        Debug.Log("2");
         if(can_Move){
             transform.position = Vector3.MoveTowards(transform.position,
             movePoint.position, smoothMovement);
@@ -75,6 +76,13 @@ public class MovingPlatform : MonoBehaviour
     public void ActivateMovement(){
         can_Move = true;
 
-        soundFX.PlayAudio(true);
+        //soundFX.PlayAudio(true);
     }
+
+    private void OnTriggerEnter(Collider target) {
+       if(target.CompareTag(Tags.PLAYER_TAG)){
+           Invoke("ActivateMovement",timer);
+           target.gameObject.transform.parent = transform;
+       }
+   }
 }

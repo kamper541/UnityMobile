@@ -11,6 +11,11 @@ TagManager:
   - KUY
   - inv
   - BlockCode
+  - WarpPoint
+  - Effect
+  - WaterFall
+  - Chon
+  - Mark
   layers:
   - Default
   - TransparentFX

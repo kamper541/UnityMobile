@@ -9,6 +9,8 @@ public class RunBlock : MonoBehaviour
 {
     private static bool running = false;
     private static bool rotating = false;
+
+    private static bool jumping = false;
     private static bool Activated = false;
 
     private static InputField stepsI;
@@ -43,6 +45,10 @@ public class RunBlock : MonoBehaviour
         return rotating;
     }
 
+    public static bool getJumping(){
+        return jumping;
+    }
+
     public static bool getAct(){
         return Activated;
     }
@@ -52,6 +58,10 @@ public class RunBlock : MonoBehaviour
     }
     public static void setRotating(){
         rotating = false;
+    }
+
+    public static void setJumping(){
+        jumping = false;
     }
 
     public static void setActivate(){
@@ -87,6 +97,9 @@ public class RunBlock : MonoBehaviour
             Debug.Log(rotating);
         }else if(panel[i].name == "Wait(Clone)"){
             yield return new WaitForSeconds(5f);
+        }else if(panel[i].name == "Jump(Clone)"){
+            jumping = true;
+            yield return new WaitWhile(() => jumping == true);
         }
         }
         panel = null;

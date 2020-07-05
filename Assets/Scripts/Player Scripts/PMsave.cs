@@ -36,7 +36,9 @@ public class PMsave : MonoBehaviour
 
     int framePerU;
 
+    float oldY;
 
+    public float jumpForce = 20.0f;
     public static bool getFinish(){
         return finish;
     }
@@ -50,6 +52,7 @@ public class PMsave : MonoBehaviour
         zPost = this.transform.localPosition.z;
         angle = this.transform.rotation.y;
         framePerU = 0;
+        oldY = startY;
     }
 
     void Awake(){
@@ -82,7 +85,10 @@ public class PMsave : MonoBehaviour
         RotatePlayer(RunBlock.getRevs());
         }
         else if(RunBlock.getRunning() == true){
-        MovePlayer(RunBlock.getSteps());
+            MovePlayer(RunBlock.getSteps());
+        }
+        else if(RunBlock.getJumping() == true){
+        Jump(1);
         }
     }
     void GetInput(){
@@ -95,14 +101,8 @@ public class PMsave : MonoBehaviour
         }
     }
 
-    void UpdateForward(){
-        transform.forward = Vector3.Slerp(
-            transform.forward, targetForward, Time.deltaTime * smoothMovement
-        );
-    }
     public void MovePlayer(float ans){
-        Debug.Log("Moving Player" + ans);
-            if(framePerU == ans){
+            if(framePerU == ans * 2.0f * 10.0f){
                 RunBlock.setRunning();
                 zPost = this.transform.localPosition.z;
                 framePerU = 0;
@@ -114,24 +114,21 @@ public class PMsave : MonoBehaviour
 
 
     public void RotatePlayer(float ans){
-
         Debug.Log("Rotating");
-        //float check = angle + 90;
-        
-        
-        // if(this.transform.rotation.eulerAngles.y >= angle + 90){
-        //     RunBlock.setRotating();
-        //     angle = this.transform.rotation.eulerAngles.y;
-        // }else{
-        // // float tar = this.transform.rotation.y + ans;
-        // // Quaternion target = Quaternion.Euler(0.0f, tar, 0.0f);
-        // // this.transform.rotation = Quaternion.Slerp(this.transform.rotation, target,  Time.deltaTime * 5.0f);
-        // // yield return new WaitForSeconds(2f);
-        // transform.Rotate(0 , ans , 0);
-        // }
         transform.Rotate(0 , ans , 0);
         RunBlock.setRotating();
         Debug.Log(angle);
+    }
+
+    public void Jump(float ans){
+        // rb.AddForce( Vector3.up * jumpForce , ForceMode.Impulse);
+        if(framePerU == ans * 2.0f * 10.0f){
+            RunBlock.setJumping();
+            framePerU = 0;
+        }else{
+            transform.Translate(Vector3.up * Time.deltaTime * 9.8f);
+            framePerU ++;
+        }
     }
 
 }

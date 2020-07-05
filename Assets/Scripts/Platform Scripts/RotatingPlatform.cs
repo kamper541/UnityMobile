@@ -34,7 +34,7 @@ public class RotatingPlatform : MonoBehaviour
     }
 
     void RotatePlatform(){
-        if(can_Rotate){
+        if(PlatformButton.getcan()){
             transform.rotation = Quaternion.Lerp(transform.rotation,
             Quaternion.Euler(rotatingAngles.x , rotatingAngles.y, rotatingAngles.z),
             smoothRotate * Time.deltaTime);
@@ -42,15 +42,15 @@ public class RotatingPlatform : MonoBehaviour
         }
     }
 
-    public void ActivateRotation(){
-        if(!can_Rotate){
-            can_Rotate = true;
+    // public void ActivateRotation(){
+    //     if(!can_Rotate){
+    //         can_Rotate = true;
 
-            Invoke("DeactivateRotation", deactivateTimer);
-        }
-    }
+    //         Invoke("DeactivateRotation", deactivateTimer);
+    //     }
+    // }
 
-    void DeactivateRotation(){
-        can_Rotate = false;
-    }
+    // void DeactivateRotation(){
+    //     can_Rotate = false;
+    // }
 }
