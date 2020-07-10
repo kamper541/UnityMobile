@@ -831,7 +831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 665d16dff07bea84e8704e4193fb21b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextLevelName: testing
+  nextLevelName: Stage3
   timer: 2
 --- !u!1001 &501100942
 PrefabInstance:
@@ -2714,7 +2714,7 @@ PrefabInstance:
     - target: {fileID: 4566968216584286769, guid: 3a0f3959696231b41a4daf40d893284a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 4566968216584286769, guid: 3a0f3959696231b41a4daf40d893284a,
         type: 3}

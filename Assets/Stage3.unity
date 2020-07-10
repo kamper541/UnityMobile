@@ -1276,10 +1276,13 @@ MonoBehaviour:
   rotationSmoothing: 15
   zoomOutMin: 1
   zoomOutMax: 18
-  cam: {fileID: 963194227}
-  targets: {fileID: 0}
-  distanceToTarget: 10
+  KingCam: {fileID: 0}
+  MainCam: {fileID: 0}
   TouchField: {fileID: 0}
+  controller: {fileID: 0}
+  cam: {fileID: 963194227}
+  speed: 6
+  turnSnoothTime: 0.1
 --- !u!1 &637846306
 GameObject:
   m_ObjectHideFlags: 0
@@ -2548,7 +2551,7 @@ PrefabInstance:
     - target: {fileID: 6455028993592543802, guid: 688ab68cc57ff5247a276af3df007494,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 6455028993592543802, guid: 688ab68cc57ff5247a276af3df007494,
         type: 3}
@@ -2612,6 +2615,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 688ab68cc57ff5247a276af3df007494, type: 3}
+--- !u!1 &1278392374 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8158855070926165754, guid: 688ab68cc57ff5247a276af3df007494,
+    type: 3}
+  m_PrefabInstance: {fileID: 1278392373}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1278392375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278392374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 665d16dff07bea84e8704e4193fb21b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextLevelName: Stage4
+  timer: 2
+--- !u!135 &1278392376
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278392374}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.8578732
+  m_Center: {x: -0.018309087, y: 0.49944893, z: -0.01845695}
 --- !u!1 &1309484943 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8158855072247421611, guid: 688ab68cc57ff5247a276af3df007494,
@@ -3462,6 +3498,7 @@ MonoBehaviour:
   startZ: 8
   startR: 180
   moveSpeed: 3
+  jumpForce: 20
 --- !u!1 &1909124996
 GameObject:
   m_ObjectHideFlags: 0

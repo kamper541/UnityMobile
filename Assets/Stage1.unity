@@ -439,7 +439,7 @@ PrefabInstance:
     - target: {fileID: 1967959336215599008, guid: a73e360328a01e546b9d5868bb8c709a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 1967959336215599008, guid: a73e360328a01e546b9d5868bb8c709a,
         type: 3}
@@ -523,6 +523,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a73e360328a01e546b9d5868bb8c709a, type: 3}
+--- !u!1 &91287356 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7068953066085994466, guid: a73e360328a01e546b9d5868bb8c709a,
+    type: 3}
+  m_PrefabInstance: {fileID: 91287355}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &91287357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 91287356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 665d16dff07bea84e8704e4193fb21b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextLevelName: Stage2
+  timer: 2
+--- !u!135 &91287358
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 91287356}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.8127756
+  m_Center: {x: -0.009646833, y: 0.45730495, z: 0.025545374}
 --- !u!1 &136788183 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7068953066318051350, guid: a73e360328a01e546b9d5868bb8c709a,
@@ -1356,10 +1389,13 @@ MonoBehaviour:
   rotationSmoothing: 15
   zoomOutMin: 1
   zoomOutMax: 18
-  cam: {fileID: 963194227}
-  targets: {fileID: 1892425354}
-  distanceToTarget: 10
+  KingCam: {fileID: 0}
+  MainCam: {fileID: 0}
   TouchField: {fileID: 0}
+  controller: {fileID: 0}
+  cam: {fileID: 963194227}
+  speed: 6
+  turnSnoothTime: 0.1
 --- !u!1 &637846306
 GameObject:
   m_ObjectHideFlags: 0
@@ -3579,12 +3615,7 @@ MonoBehaviour:
   startZ: 8
   startR: 90
   moveSpeed: 3
---- !u!4 &1892425354 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1967959336215599008, guid: a73e360328a01e546b9d5868bb8c709a,
-    type: 3}
-  m_PrefabInstance: {fileID: 91287355}
-  m_PrefabAsset: {fileID: 0}
+  jumpForce: 20
 --- !u!1 &1909124996
 GameObject:
   m_ObjectHideFlags: 0

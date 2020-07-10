@@ -666,6 +666,39 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 242657587}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &242657589 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1155470555896858249, guid: b546803bc2b4ef741a8d843ec3490984,
+    type: 3}
+  m_PrefabInstance: {fileID: 242657587}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &242657590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 242657589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 665d16dff07bea84e8704e4193fb21b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextLevelName: Stage7
+  timer: 2
+--- !u!135 &242657591
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 242657589}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.7818707
+  m_Center: {x: 0.0057184696, y: 0.441341, z: -0.06393662}
 --- !u!1 &294292534
 GameObject:
   m_ObjectHideFlags: 0
