@@ -30,6 +30,9 @@ EditorBuildSettings:
     path: Assets/Stage6.unity
     guid: 68dfd94ca97443744b883e2f1170a086
   - enabled: 1
+    path: Assets/Stage6.5.unity
+    guid: eb877571a3edc5647bc73e4c3de61ae1
+  - enabled: 1
     path: Assets/Stage7.unity
     guid: 6077b64ccdb4f5a4986c6a9227e6c02b
   - enabled: 1
@@ -47,6 +50,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Stage12.unity
     guid: f493fac71e219c34f95ca6981dd11700
+  - enabled: 1
+    path: Assets/Stage12.5.unity
+    guid: 31431886f2bd9ac49ab35f22e32ae100
   - enabled: 1
     path: Assets/Stage13.unity
     guid: 859a9816b536e2d4c98a077bc99556be

@@ -13,6 +13,11 @@ public class MenuScript : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene ().buildIndex + 2);
     }
 
+    public void ContiNue(){
+        closing = false;
+        SceneManager.LoadScene(SceneManager.GetActiveScene ().buildIndex + 1);
+    }
+
     public void MainMenu(){
         closing = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
