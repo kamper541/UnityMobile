@@ -12,6 +12,15 @@ EditorBuildSettings:
     path: Assets/Tuto.unity
     guid: e882c4ec8ae62e043bc8cc0e6d1df848
   - enabled: 1
+    path: Assets/Level_Menu 1.unity
+    guid: da4b1153b21ba1d40bd9bab161d3ff5f
+  - enabled: 1
+    path: Assets/Level1.unity
+    guid: 1f81459b2d1eb5e4d89cbe4c5d23de64
+  - enabled: 1
+    path: Assets/Level2.unity
+    guid: 53b3ef70f6729184ebe0fdbb9eb9a0df
+  - enabled: 1
     path: Assets/Stage1.unity
     guid: 8fd01246fb833ab4bac4578a783fa75f
   - enabled: 1

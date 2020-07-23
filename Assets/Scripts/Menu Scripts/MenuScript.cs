@@ -23,6 +23,11 @@ public class MenuScript : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
+    public void MainMenuALl(){
+        closing = true;
+        SceneManager.LoadScene("Main");
+    }
+
     public void MainMenu2(){
         closing = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
@@ -50,6 +55,10 @@ public class MenuScript : MonoBehaviour
 
     public void PlayTutorial(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void StageChange(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
     }
 
     public void continuePlay(){
