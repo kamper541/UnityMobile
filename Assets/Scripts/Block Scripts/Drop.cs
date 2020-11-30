@@ -5,7 +5,8 @@ using UnityEngine.EventSystems;
 
 public class Drop : MonoBehaviour, IDropHandler, IPointerEnterHandler,IPointerExitHandler
 {
-    
+    public GameObject myPrefab;
+
     public void OnDrop(PointerEventData eventData)
     {
         Debug.Log("OnDrop to ...");
